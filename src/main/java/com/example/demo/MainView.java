@@ -19,7 +19,7 @@ import java.awt.*;
 public class MainView extends VerticalLayout {
     private PersonRepository repository;
     private TextField firstName = new TextField("First name"); // Имя
-    private TextField lastName = new TextField("Last name");
+    private TextField lastName = new TextField("Last name"); // Фамилия
     private TextField email = new TextField("Email");
     private Binder<Person> binder = new Binder<>(Person.class);
     private Grid<Person> grid = new Grid<>(Person.class);
