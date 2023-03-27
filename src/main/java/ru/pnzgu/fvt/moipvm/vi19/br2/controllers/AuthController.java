@@ -12,6 +12,7 @@ import ru.pnzgu.fvt.moipvm.vi19.br2.services.RegistrationService;
 import ru.pnzgu.fvt.moipvm.vi19.br2.util.PersonValidator;
 
 import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {

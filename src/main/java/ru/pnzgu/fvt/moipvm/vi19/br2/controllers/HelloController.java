@@ -36,4 +36,6 @@ public class HelloController {
         adminService.doAdminStuff();
         return "admin";
     }
+
+
 }

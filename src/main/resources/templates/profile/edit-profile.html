@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование профиля</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/profile}" th:object="${personInfo}">
+    <label for="surname">Фамилия: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+    <br/>
+
+    <label for="firstname">Имя: </label>
+    <input type="text" th:field="*{firstname}" id="firstname"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error</div>
+    <br/>
+
+    <label for="city_id">Выберите город</label>
+    <select th:object="${personInfo}" th:field="*{city_id}" id="city_id">
+        <option th:each="c : ${city}" th:value="${c.getId()}" th:text="${c.getName()}">
+        </option>
+    </select>
+    <br/>
+
+    <label for="city_id">Выберите вид деятельности</label>
+    <select th:object="${personInfo}" th:field="*{activity_id}" id="activity_id">
+        <option th:each="a : ${activity}" th:value="${a.getId()}" th:text="${a.getName()}">
+        </option>
+    </select>
+    <br/>
+
+
+
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>
