@@ -3,38 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактирование профиля</title>
+
+    <!--    <script>-->
+    <!--        const photo = document.getElementById('photo');-->
+    <!--        const reader = new FileReader();-->
+    <!--        const imageGrid = document.getElementById('image-grid');-->
+
+    <!--        photo.addEventListener('change', (event) => {-->
+    <!--            const files = event.target.files;-->
+    <!--            const file = files[0];-->
+    <!--            reader.readAsDataURL(file);-->
+
+    <!--            reader.addEventListener('load', (event) => {-->
+    <!--                const img = document.createElement('img');-->
+    <!--                imageGrid.appendChild(img);-->
+    <!--                img.src = event.target.result;-->
+    <!--                img.alt = file.name;-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
+
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/profile.css"/>-->
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        p {
+            font-weight: 500;
+        }
+
+        /* text-field */
+        .text-field {
+            margin-bottom: 1rem;
+        }
+
+        .text-field__label {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .text-field__input {
+            display: block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #bdbdbd;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .text-field__input::placeholder {
+            color: #212529;
+            opacity: 0.4;
+        }
+
+        .text-field__input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #bdbdbd;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+        }
+
+        .text-field__input:disabled,
+        .text-field__input[readonly] {
+            background-color: #f5f5f5;
+            opacity: 1;
+        }
+
+        .submit {
+            cursor: pointer;
+            border: 1px solid #cecece;
+            background: darkcyan;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 7px;
+            width: 120px;
+            font-color: white;
+        }
+
+        .submit:hover {
+            background: rgba(0, 139, 139, 0.85);
+        }
+
+        .submit:active {
+            margin-top: 1px;
+            margin-bottom: -1px;
+            zoom: 1;
+        }
+
+        .submit:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
+<div style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
 
-<form th:method="POST" th:action="@{/profile}" th:object="${personInfo}">
-    <label for="surname">Фамилия: </label>
-    <input type="text" th:field="*{surname}" id="surname"/>
-    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
-    <br/>
+    <form th:method="POST" th:action="@{/profile}" th:object="${personInfo}">
+        <div class="text-field">
+            <label class="text-field__label" for="photo" accept="image/*,image/jpeg">Фотография: </label>
+            <input type="file" th:field="*{photo}" id="photo" name="photo"/>
+        </div>
 
-    <label for="firstname">Имя: </label>
-    <input type="text" th:field="*{firstname}" id="firstname"/>
-    <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error</div>
-    <br/>
+        <div id="image-grid">
 
-    <label for="city_id">Выберите город</label>
-    <select th:object="${personInfo}" th:field="*{city_id}" id="city_id">
-        <option th:each="c : ${city}" th:value="${c.getId()}" th:text="${c.getName()}">
-        </option>
-    </select>
-    <br/>
+        </div>
 
-    <label for="city_id">Выберите вид деятельности</label>
-    <select th:object="${personInfo}" th:field="*{activity_id}" id="activity_id">
-        <option th:each="a : ${activity}" th:value="${a.getId()}" th:text="${a.getName()}">
-        </option>
-    </select>
-    <br/>
+        <div class="text-field">
+            <label class="text-field__label" for="surname">Фамилия: </label>
+            <input class="text-field__input" type="text" th:field="*{surname}" id="surname" name="surname"
+                   placeholder="Surname"/>
+            <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+        </div>
 
+        <div class="text-field">
+            <label class="text-field__label" for="firstname">Имя: </label>
+            <input class="text-field__input" type="text" th:field="*{firstname}" id="firstname"
+                   placeholder="Firstname"/>
+            <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error
+            </div>
+        </div>
 
+        <div class="text-field">
+            <label class="text-field__label" for="city_id">Выберите город: </label>
+            <select class="text-field__input" th:object="${personInfo}" th:field="*{city_id}" id="city_id"
+                    placeholder="City">
+                <option th:each="c : ${city}" th:value="${c.getId()}" th:text="${c.getName()}">
+                </option>
+            </select>
+        </div>
 
-    <input type="submit" value="Create!"/>
-</form>
+        <div class="text-field">
+            <label class="text-field__label" for="city_id">Выберите вид деятельности: </label>
+            <select class="text-field__input" th:object="${personInfo}" th:field="*{activity_id}" id="activity_id"
+                    placeholder="Activity">
+                <option th:each="a : ${activity}" th:value="${a.getId()}" th:text="${a.getName()}">
+                </option>
+            </select>
+        </div>
 
+        <input class="submit" type="submit" value="Create!"/>
+
+    </form>
+</div>
+<script src="../../scripts/profile.js"></script>
 </body>
 </html>
