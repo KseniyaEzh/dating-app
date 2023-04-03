@@ -3,27 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактирование профиля</title>
-
-    <!--    <script>-->
-    <!--        const photo = document.getElementById('photo');-->
-    <!--        const reader = new FileReader();-->
-    <!--        const imageGrid = document.getElementById('image-grid');-->
-
-    <!--        photo.addEventListener('change', (event) => {-->
-    <!--            const files = event.target.files;-->
-    <!--            const file = files[0];-->
-    <!--            reader.readAsDataURL(file);-->
-
-    <!--            reader.addEventListener('load', (event) => {-->
-    <!--                const img = document.createElement('img');-->
-    <!--                imageGrid.appendChild(img);-->
-    <!--                img.src = event.target.result;-->
-    <!--                img.alt = file.name;-->
-    <!--            });-->
-    <!--        });-->
-    <!--    </script>-->
-
-    <!--    <link rel="stylesheet" type="text/css" href="../../css/profile.css"/>-->
     <style>
         *,
         *::before,
@@ -99,18 +78,21 @@
         }
 
         .submit {
+            margin: auto;
+            width: 200px;
+            align-items: center;
             cursor: pointer;
             border: 1px solid #cecece;
-            background: darkcyan;
-            border-radius: 8px;
+            background: #1695A3;
+            border-radius: 5px;
             padding: 10px 14px;
-            margin-top: 7px;
-            width: 120px;
-            font-color: white;
+            /*margin-top: 7px;*/
+            color: #fff;
+            display: block;
         }
 
         .submit:hover {
-            background: rgba(0, 139, 139, 0.85);
+            background: rgba(22, 149, 163, 0.98);
         }
 
         .submit:active {
@@ -122,40 +104,111 @@
         .submit:focus {
             outline: none;
         }
+
+
+        .input__wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            /*position: relative;*/
+            /*margin: 15px 0;*/
+            text-align: center;
+        }
+
+        .input__file {
+            opacity: 0;
+            visibility: hidden;
+            /*position: absolute;*/
+        }
+
+        .input__file-icon-wrapper {
+            height: 60px;
+            width: 60px;
+            margin-right: 10px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            border-right: 1px solid #fff;
+        }
+
+        .input__file-button-text {
+            line-height: 1;
+            margin-top: 1px;
+        }
+
+        .input__file-button {
+            width: 100%;
+            max-width: 200px;
+            height: 32px;
+            background: #63bac5;
+            color: #ffffff;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: start;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <div style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px;">
 
-    <form th:method="POST" th:action="@{/profile}" th:object="${personInfo}">
-        <div class="text-field">
-            <label class="text-field__label" for="photo" accept="image/*,image/jpeg">Фотография: </label>
-            <input type="file" th:field="*{photo}" id="photo" name="photo"/>
-        </div>
+    <form th:method="POST" th:action="@{/profile}" th:object="${personInfo}" enctype="multipart/form-data">
+        <div style="display: grid; grid-template-rows: 235px 1fr;">
+            <div id="image-grid" style="width: 220px">
+                <label class="text-field__label" for="photo" accept="image/*,image/jpeg">Фотография профиля: </label>
+                <img th:src="@{/img/ava.jpg}" id="ava" style="width: 200px; height: 200px; margin-top: 7px"/>
+            </div>
 
-        <div id="image-grid">
+            <div class="input__wrapper">
+                <input th:field="*{photo}" name="photo" type="file" id="photo" class="input input__file">
+                <label for="photo" class="input__file-button">
+                    <span class="input__file-icon-wrapper"><img class="input__file-icon" th:src="@{/img/upload.png}"
+                                                                alt="Выбрать файл" width="27"></span>
+                    <span class="input__file-button-text">Выберите файл</span>
+                </label>
+            </div>
 
-        </div>
-
-        <div class="text-field">
-            <label class="text-field__label" for="surname">Фамилия: </label>
-            <input class="text-field__input" type="text" th:field="*{surname}" id="surname" name="surname"
-                   placeholder="Surname"/>
-            <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+            <!--            <div class="text-field">-->
+            <!--                <input type="file" th:field="*{photo}" id="photo" name="photo" required class="input input__file"/>-->
+            <!--            </div>-->
         </div>
 
         <div class="text-field">
             <label class="text-field__label" for="firstname">Имя: </label>
             <input class="text-field__input" type="text" th:field="*{firstname}" id="firstname"
-                   placeholder="Firstname"/>
+                   placeholder="Введите имя" required/>
             <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error
             </div>
         </div>
 
         <div class="text-field">
+            <label class="text-field__label" for="surname">Фамилия: </label>
+            <input class="text-field__input" type="text" th:field="*{surname}" id="surname" name="surname" required
+                   placeholder="Введите фамилию"/>
+            <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+        </div>
+
+        <div class="text-field">
+            <label class="text-field__label" for="date_of_birth">Дата рождения: </label>
+            <input class="text-field__input" type="date" th:field="*{dateOfBirth}" id="date_of_birth" required/>
+        </div>
+
+        <div class="text-field">
             <label class="text-field__label" for="city_id">Выберите город: </label>
             <select class="text-field__input" th:object="${personInfo}" th:field="*{city_id}" id="city_id"
-                    placeholder="City">
+                    placeholder="Выберите город" required>
                 <option th:each="c : ${city}" th:value="${c.getId()}" th:text="${c.getName()}">
                 </option>
             </select>
@@ -164,16 +217,16 @@
         <div class="text-field">
             <label class="text-field__label" for="city_id">Выберите вид деятельности: </label>
             <select class="text-field__input" th:object="${personInfo}" th:field="*{activity_id}" id="activity_id"
-                    placeholder="Activity">
+                    placeholder="Выберите вид активности" required>
                 <option th:each="a : ${activity}" th:value="${a.getId()}" th:text="${a.getName()}">
                 </option>
             </select>
         </div>
-
-        <input class="submit" type="submit" value="Create!"/>
-
+        <div style="margin-top: 15px">
+            <input class="submit" type="submit" value="Сохранить"/>
+        </div>
     </form>
 </div>
-<script src="../../scripts/profile.js"></script>
+<script th:src="@{/scripts/profile.js}"></script>
 </body>
 </html>

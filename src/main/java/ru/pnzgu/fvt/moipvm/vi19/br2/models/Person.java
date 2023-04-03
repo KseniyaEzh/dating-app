@@ -1,9 +1,13 @@
 package ru.pnzgu.fvt.moipvm.vi19.br2.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
+
 @Entity
 @Table(name = "Person")
 public class Person {
@@ -17,23 +21,46 @@ public class Person {
     @Column(name = "username")
     private String username;
 
-    @Min(value = 1900, message = "Год рождения должен быть больше, чем 1900")
-    @Column(name = "year_of_birth")
-    private int yearOfBirth;
-
     @Column(name = "password")
     private String password;
 
     @Column(name = "role")
     private String role;
 
-    // Конструктор по умолчанию нужен для Spring
-    public Person() {
-    }
+    @Column(name = "activity_id")
+    private int activity_id;
 
-    public Person(String username, int yearOfBirth) {
-        this.username = username;
-        this.yearOfBirth = yearOfBirth;
+    @Column(name = "city_id")
+    private int city_id;
+
+    @NotEmpty(message = "Поле с фамилией не должно быть пустым")
+    @Size(min = 2, max = 100, message = "Фамилия должна быть от 2 до 100 символов длиной")
+    @Column(name = "surname")
+    private String surname;
+
+    @NotEmpty(message = "Имя не должно быть пустым")
+    @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов длиной")
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // дд/мм/гггг
+    private Date dateOfBirth;
+
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "gender_id")
+    private int gender_id;
+
+    @Column(name = "education_id")
+    private int education_id;
+
+    @Column(name = "marital_id")
+    private int marital_id;
+
+    public Person() {
     }
 
     public int getId() {
@@ -52,14 +79,6 @@ public class Person {
         this.username = username;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -76,13 +95,75 @@ public class Person {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
-                ", password='" + password + '\'' +
-                '}';
+    public int getActivity_id() {
+        return activity_id;
+    }
+
+    public void setActivity_id(int activity_id) {
+        this.activity_id = activity_id;
+    }
+
+    public int getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public int getGender_id() {
+        return gender_id;
+    }
+
+    public void setGender_id(int gender_id) {
+        this.gender_id = gender_id;
+    }
+
+    public int getEducation_id() {
+        return education_id;
+    }
+
+    public void setEducation_id(int education_id) {
+        this.education_id = education_id;
+    }
+
+    public int getMarital_id() {
+        return marital_id;
+    }
+
+    public void setMarital_id(int marital_id) {
+        this.marital_id = marital_id;
     }
 }

@@ -2,26 +2,351 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Регистрация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f8f0f0;
+        }
+
+        #block-body {
+            width: 100%;
+            height: auto;
+        }
+
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #343636;
+        }
+
+        #block-content {
+            width: 100%;
+            height: auto;
+            min-height: 500px;
+        }
+
+        .logo {
+            width: 100px;
+            float: left;
+        }
+
+        .logo a {
+            display: block;
+            margin-left: 35px;
+            margin-top: 2px;
+            font-size: 28px;
+            color: #b2aeb2;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .web {
+            font-size: 48px;
+            color: #429595;
+        }
+
+        .logo p {
+            margin-left: 20px;
+            margin-top: 2px;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: white;
+        }
+
+        .top-menu {
+            width: 685px;
+            height: 60px;
+            float: left;
+        }
+
+        .top-menu ul li {
+            list-style: none;
+            float: left;
+            text-align: center;
+        }
+
+        .top-menu ul li a {
+            font-family: "Helvetica Neue", sans-serif;
+            font-size: 12pt;
+            display: block;
+            width: 171px;
+            text-decoration: none;
+            color: white;
+            height: 60px;
+            padding-top: 21px;
+            cursor: pointer;
+        }
+
+        .top-menu ul li a:hover {
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            background: #1695A3;
+        }
+
+        .block-top-auth p {
+            margin-top: 12px;
+            text-align: center;
+            margin-bottom: 8px;
+
+        }
+
+        .block-top-auth a {
+            /*text-decoration: none;*/
+            color: white;
+            font-size: 15px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .block-top-auth a:hover {
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            color: #1695A3;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.5;
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+            /*margin-top: 5px;*/
+            margin-top: 70px
+        }
+
+        .text-field__label {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .text-field__label-radio {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            /*display: block;*/
+            margin-bottom: 0.25rem;
+            margin-right: 20px;
+        }
+
+        .text-field__input {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            display: block;
+            width: 100%;
+            height: calc(2.25rem + 2px);
+            padding: 0.375rem 0.75rem;
+            /*font-family: inherit;*/
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #bdbdbd;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .text-field__input::placeholder {
+            color: #212529;
+            opacity: 0.4;
+        }
+
+        .text-field__input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #bdbdbd;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+        }
+
+        .text-field__input:disabled,
+        .text-field__input[readonly] {
+            background-color: #f5f5f5;
+            opacity: 1;
+        }
+
+        .submit {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 1rem;
+            font-weight: 400;
+            margin: auto;
+            width: 200px;
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid #cecece;
+            background: #1695A3;
+            border-radius: 5px;
+            padding: 10px 14px;
+            /*margin-top: 7px;*/
+            color: #fff;
+            display: block;
+        }
+
+        .submit:hover {
+            background: rgba(22, 149, 163, 0.8);
+        }
+
+        .submit:active {
+            margin-top: 1px;
+            margin-bottom: -1px;
+            zoom: 1;
+        }
+
+        .submit:focus {
+            outline: none;
+        }
+
+        .input__wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+<div id="block-body">
 
-<form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
-    <label for="username">Введите имя пользователя: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
-    <br/>
-    <label for="yearOfBirth">Введите год рождения: </label>
-    <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
-    <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Year of birth Error
+    <header style="position: fixed">
+        <div class="logo">
+            <a th:href="@{/auth/login}">
+                <span class="web">A</span>
+            </a>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 342px 1fr 342px">
+            <div class="top-menu" style="float: left">
+
+            </div>
+            <div>
+
+            </div>
+            <div class="top-menu" style="float: right">
+                <ul>
+                    <li><a th:href="@{/auth/login}">Вход</a></li>
+                    <li><a th:href="@{/auth/registration}">Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div id="block-content" style="max-width: 500px; margin-left: auto; margin-right: auto; padding: 15px">
+        <h1>Регистрация на сайте знакомств<p style="color: #1695A3">Acquaintance</p></h1>
+
+        <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="firstname">Введите имя</label>
+                <input class="text-field__input" type="text" th:field="*{firstname}" id="firstname"
+                       placeholder="Введите имя" required/>
+                <div style="color:red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname
+                    Error
+                </div>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="surname">Введите фамилию</label>
+                <input class="text-field__input" type="text" th:field="*{surname}" id="surname" name="surname" required
+                       placeholder="Введите фамилию"/>
+                <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error
+                </div>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="date_of_birth">Дата рождения</label>
+                <input class="text-field__input" type="date" th:field="*{dateOfBirth}" id="date_of_birth" required/>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="city_id">Выберите город</label>
+                <select class="text-field__input" th:object="${person}" th:field="*{city_id}" id="city_id"
+                        placeholder="Выберите город" required>
+                    <option th:each="c : ${city}" th:value="${c.getId()}" th:text="${c.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="city_id">Выберите вид деятельности</label>
+                <select class="text-field__input" th:object="${person}" th:field="*{activity_id}" id="activity_id"
+                        placeholder="Выберите вид активности" required>
+                    <option th:each="a : ${activity}" th:value="${a.getId()}" th:text="${a.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="education_id">Выберите ваше образование</label>
+                <select class="text-field__input" th:object="${person}" th:field="*{education_id}" id="education_id"
+                        placeholder="Выберите ваше образование" required>
+                    <option th:each="e : ${education}" th:value="${e.getId()}" th:text="${e.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="marital_id">Выберите семейное положение</label>
+                <select class="text-field__input" th:object="${person}" th:field="*{marital_id}" id="marital_id"
+                        placeholder="Выберите семейное положение" required>
+                    <option th:each="m : ${marital}" th:value="${m.getId()}" th:text="${m.getName()}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label">Выберите ваш пол</label>
+                <label class="text-field__label-radio">
+                    <input class="" th:value="${1}" th:field="*{gender_id}" type="radio">
+                    Мужской
+                </label>
+                <label class="text-field__label-radio">
+                    <input class="" th:value="${2}" th:field="*{gender_id}" type="radio">
+                    Женский
+                </label>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="username">Введите имя пользователя</label>
+                <input class="text-field__input" type="text" th:field="*{username}" id="username" required
+                       placeholder="Имя пользователя"/>
+                <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error
+                </div>
+            </div>
+
+            <div class="input__wrapper">
+                <label class="text-field__label" for="password">Введите пароль</label>
+                <input class="text-field__input" type="password" th:field="*{password}" required id="password"
+                       placeholder="Пароль"/>
+                <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error
+                </div>
+            </div>
+
+            <input class="submit" type="submit" value="Зарегистрироваться"/>
+
+        </form>
     </div>
-    <br/>
-    <label for="password">Введите пароль: </label>
-    <input type="password" th:field="*{password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
-    <input type="submit" value="Sign up!"/>
-</form>
-
+</div>
 </body>
 </html>
