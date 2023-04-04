@@ -6,6 +6,7 @@ import ru.pnzgu.fvt.moipvm.vi19.br2.models.City;
 import ru.pnzgu.fvt.moipvm.vi19.br2.repositories.CityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
@@ -18,5 +19,10 @@ public class CityService {
 
     public List<City> findAll() {
         return cityRepository.findAll();
+    }
+
+    public City findOne(int id) {
+        Optional<City> foundPerson = cityRepository.findById(id);
+        return foundPerson.orElse(null);
     }
 }

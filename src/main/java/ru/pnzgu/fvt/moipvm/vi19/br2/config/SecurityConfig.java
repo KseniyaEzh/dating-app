@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import ru.pnzgu.fvt.moipvm.vi19.br2.services.PersonDetailsService;
+import ru.pnzgu.fvt.moipvm.vi19.br2.util.Counter;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

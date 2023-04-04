@@ -1,6 +1,9 @@
 package ru.pnzgu.fvt.moipvm.vi19.br2.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import ru.pnzgu.fvt.moipvm.vi19.br2.security.PersonDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -65,6 +68,13 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    public int getIdAuth() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        System.out.println(personDetails.getPerson());
+        return personDetails.getPerson().getId();
     }
 
     public void setId(int id) {

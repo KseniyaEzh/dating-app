@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pnzgu.fvt.moipvm.vi19.br2.models.Person;
 import ru.pnzgu.fvt.moipvm.vi19.br2.services.*;
+import ru.pnzgu.fvt.moipvm.vi19.br2.util.Counter;
 import ru.pnzgu.fvt.moipvm.vi19.br2.util.PersonValidator;
 
 import javax.validation.Valid;
@@ -25,9 +26,10 @@ public class AuthController {
     private final GenderService genderService;
     private final EducationService educationService;
     private final MaritalService maritalService;
+    private final Counter counter;
 
     @Autowired
-    public AuthController(RegistrationService registrationService, PersonValidator personValidator, CityService cityService, ActivityService activityService, GenderService genderService, EducationService educationService, MaritalService maritalService) {
+    public AuthController(RegistrationService registrationService, PersonValidator personValidator, CityService cityService, ActivityService activityService, GenderService genderService, EducationService educationService, MaritalService maritalService, Counter counter) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
         this.cityService = cityService;
@@ -35,10 +37,12 @@ public class AuthController {
         this.genderService = genderService;
         this.educationService = educationService;
         this.maritalService = maritalService;
+        this.counter = counter;
     }
 
     @GetMapping("/login")
     public String loginPage() {
+        counter.increment();
         return "auth/login";
     }
 
@@ -68,6 +72,8 @@ public class AuthController {
             System.out.println(bindingResult.getAllErrors());
             return "/auth/registration";
         }
+
+        counter.increment();
 
         registrationService.register(person);
 

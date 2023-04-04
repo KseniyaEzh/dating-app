@@ -5,6 +5,7 @@ import ru.pnzgu.fvt.moipvm.vi19.br2.models.Education;
 import ru.pnzgu.fvt.moipvm.vi19.br2.repositories.EducationRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EducationService {
@@ -16,5 +17,10 @@ public class EducationService {
 
     public List<Education> findAll() {
         return educationRepository.findAll();
+    }
+
+    public Education findOne(int id) {
+        Optional<Education> foundPerson = educationRepository.findById(id);
+        return foundPerson.orElse(null);
     }
 }

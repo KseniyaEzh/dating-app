@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>Посты</title>
     <style>
         * {
             margin: 0;
@@ -146,25 +146,85 @@
             font-weight: 500;
             text-align: center;
             margin-bottom: 20px;
-            margin-top: 70px;
         }
 
-        /*.logout:active {*/
-        /*    margin-top: 1px;*/
-        /*    margin-bottom: -1px;*/
-        /*    zoom: 1;*/
-        /*}*/
+        h2 {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.5;
+            font-size: 1.1rem;
+            font-weight: 500;
+            /*text-align: center;*/
+            margin-bottom: 10px;
+        }
 
-        /*.logout:focus {*/
-        /*    outline: none;*/
-        /*}*/
+        p {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.5;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .footer {
+            /*position: fixed;*/
+            display: block;
+            left: 0;
+            bottom: 0;
+            padding: 7px;
+            background: #ffffff;
+            color: #313335;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .info {
+            font-family: "Helvetica Neue", sans-serif;
+            font-size: 11pt;
+            display: block;
+            text-decoration: none;
+            color: #1695A3;
+            cursor: pointer;
+        }
+
+        .link-post {
+            font-family: "Helvetica Neue", sans-serif;
+            font-size: 12pt;
+            text-decoration: none;
+            color: #1695A3;
+            cursor: pointer;
+            padding-top: 10px;
+            margin-bottom: 7px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(52, 54, 54,0.75), rgba(0,0,0,0));
+            background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(52, 54, 54,0.75), rgba(0,0,0,0));
+            background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(52, 54, 54,0.75), rgba(0,0,0,0));
+            background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(52, 54, 54,0.75), rgba(0,0,0,0));
+        }
+
+        .box{
+            box-shadow: 2px 2px 5px rgba(52, 54, 54, 0.5);
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .author{
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.5;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(52, 54, 54, 0.7);
+            padding-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 <div id="block-body">
     <header>
         <div class="logo">
-            <a href="">
+            <a th:href="@{/hello}">
                 <span class="web">A</span>
             </a>
         </div>
@@ -172,8 +232,8 @@
         <div style="display: grid; grid-template-columns: 342px 1fr 342px">
             <div class="top-menu" style="float: left">
                 <ul>
-                    <li><a class="clickMenu" href="#">Пользователи</a></li>
-                    <li><a href="#">Посты</a></li>
+                    <li><a class="clickMenu" th:href="@{/users}">Пользователи</a></li>
+                    <li><a th:href="@{/hello}">Посты</a></li>
                 </ul>
             </div>
             <div>
@@ -181,7 +241,7 @@
             </div>
             <div class="top-menu" style="float: right">
                 <ul>
-                    <li><a href="#">Личный кабинет</a></li>
+                    <li><a th:href="@{/{id}/show(id=${person.getIdAuth()})}">Личный кабинет</a></li>
                     <li>
                         <a>
                             <form th:action="@{/logout}" th:method="POST">
@@ -195,12 +255,82 @@
     </header>
 
     <div id="block-content">
-        Hello
-<!--        <h1>Посты</h1>-->
+        <h1>Посты</h1>
+
+        <div class="box" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 15px; background-color: white">
+            <p class="author">Кристина Белякова, 04.04.2023 10:25</p>
+            <h2>Как провести выходные с максимальной пользой</h2>
+            <hr>
+            <p style="padding-top: 7px; padding-bottom: 10px">
+                Чем заняться на выходных? Это один из самых популярных вопросов в конце рабочей недели.
+                После длинных трудовых будней хочется максимально расслабиться, отдохнуть на все 100%,
+                но при этом не опустошить свой бюджет. Согласитесь, долгожданные суббота и воскресенье –
+                это маленькая жизнь, и в наших силах сделать ее яркой и интересной!
+                Для этого есть классные развлечения на выходные, о которых мы расскажем подробнее.
+            </p>
+            <hr>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; padding-top: 10px">
+                <div>
+                    <a class="link-post" th:href="@{/info}">Редактировать запись</a>
+                </div>
+                <div style="text-align: right">
+                    <a class="link-post" th:href="@{/info}">Удалить запись</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 15px; background-color: white">
+            <p class="author">Кристина Белякова, 04.04.2023 10:35</p>
+            <h2>Цифровой этикет: как правильно общаться в сети?</h2>
+            <hr>
+            <p style="padding-top: 7px; padding-bottom: 10px">
+                Нас с детства учат этикету: как вести себя в гостях, в театре, в ресторане.
+                Но пока никто не рассказывал, как вести себя в интернете. Из-за этого мы часто делаем много
+                досадных ошибок. Не попадать в неприятные ситуации поможет цифровой этикет, который предлагает
+                готовые решения для эффективного и приятного общения. Поговорим о том, как общаться в
+                социальных сетях, почте и мессенджерах.
+            </p>
+            <hr>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; padding-top: 10px">
+                <div>
+                    <a class="link-post" th:href="@{/info}">Редактировать запись</a>
+                </div>
+                <div style="text-align: right">
+                    <a class="link-post" th:href="@{/info}">Удалить запись</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 15px; background-color: white">
+            <p class="author">Кристина Белякова, 04.04.2023 10:35</p>
+            <h2>Психология эффективного общения: успешная самопрезентация</h2>
+            <hr>
+            <p style="padding-top: 7px; padding-bottom: 10px">
+                Самопрезентация представляет собой подачу себя, демонстрацию собственной личности другим людям,
+                зачастую с целью повлиять на формирование их впечатления о себе. Самопрезентация имеет место в
+                нашей жизни чаще, чем, возможно, мы это осознаем. И если ситуации публичного выступления или
+                собеседования предполагают осознанную необходимость как можно лучше презентовать себя, то,
+                например, в ситуации, когда мы просто находимся среди других людей, самопрезентация является
+                неосознанной.
+            </p>
+            <hr>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; padding-top: 10px">
+                <div>
+                    <a class="link-post" th:href="@{/info}">Редактировать запись</a>
+                </div>
+                <div style="text-align: right">
+                    <a class="link-post" th:href="@{/info}">Удалить запись</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
 
-
+<div class="footer">
+    <a class="info" th:href="@{/info}">Информация о сайте</a>
+</div>
 </body>
 </html>
